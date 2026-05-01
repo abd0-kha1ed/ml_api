@@ -2,6 +2,7 @@ import hashlib
 import threading
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional
+from fastapi.responses import JSONResponse, Response
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 
@@ -287,4 +288,39 @@ def predict(request: PredictRequest):
         end=request.end,
         prediction=prediction,
         message="Prediction completed successfully",
+    )
+
+@app.get("/.well-known/assetlinks.json")
+def android_assetlinks():
+    return JSONResponse(
+        content=[
+            {
+                "relation": ["delegate_permission/common.handle_all_urls"],
+                "target": {
+                    "namespace": "android_app",
+                    "package_name": "com.example.helios_x",
+                    "sha256_cert_fingerprints": [
+                        "81:B2:E9:A2:74:E2:B9:E3:67:53:15:99:0A:7D:35:8E:E9:1B:F5:DF:21:6A:88:33:91:F3:28:C6:1F:0E:10:27"
+                    ],
+                },
+            }
+        ]
+    )
+
+
+@app.get("/.well-known/apple-app-site-association")
+def apple_app_site_association():
+    return JSONResponse(
+        content={
+            "applinks": {
+                "apps": [],
+                "details": [
+                    {
+                        "appID": "YOUR_TEAM_ID_HERE.com.example.heliosx",
+                        "paths": ["*"],
+                    }
+                ],
+            }
+        },
+        media_type="application/json",
     )
