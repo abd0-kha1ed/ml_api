@@ -3,6 +3,7 @@ import threading
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional
 from fastapi.responses import JSONResponse, Response
+from fastapi.responses import HTMLResponse
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 
@@ -324,3 +325,82 @@ def apple_app_site_association():
         },
         media_type="application/json",
     )
+
+@app.get("/privacy-policy", response_class=HTMLResponse)
+def privacy_policy():
+    return """
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Privacy Policy - Solix</title>
+      <style>
+        body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #111827; }
+        h1, h2 { color: #0f172a; }
+      </style>
+    </head>
+    <body>
+      <h1>Privacy Policy for Solix</h1>
+      <p>Last updated: 2026</p>
+
+      <h2>Information We Collect</h2>
+      <p>Solix may collect basic account information such as your name, email address, and authentication data when you sign up using email or Google Sign-In.</p>
+
+      <h2>How We Use Your Information</h2>
+      <p>We use this information to create and manage your account, provide app features, improve the app experience, and secure user access.</p>
+
+      <h2>Data Storage</h2>
+      <p>User account data is stored securely using Supabase authentication and database services.</p>
+
+      <h2>Data Sharing</h2>
+      <p>We do not sell your personal data or share it with third parties for marketing purposes.</p>
+
+      <h2>Account Deletion</h2>
+      <p>You can delete your account from inside the Solix app by going to Settings, then choosing Delete Account.</p>
+
+      <h2>Contact</h2>
+      <p>For privacy questions, contact us at: your@email.com</p>
+    </body>
+    </html>
+    """
+
+
+@app.get("/delete-account", response_class=HTMLResponse)
+def delete_account_page():
+    return """
+    <!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Delete Account - Solix</title>
+      <style>
+        body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #111827; }
+        h1, h2 { color: #0f172a; }
+      </style>
+    </head>
+    <body>
+      <h1>Delete Account - Solix</h1>
+      <p>Solix allows users to delete their account directly from inside the mobile app.</p>
+
+      <h2>How to Delete Your Account</h2>
+      <ol>
+        <li>Open the Solix app.</li>
+        <li>Sign in to your account.</li>
+        <li>Go to Settings.</li>
+        <li>Select Delete Account.</li>
+        <li>Confirm the deletion request.</li>
+      </ol>
+
+      <h2>What Will Be Deleted</h2>
+      <p>Your account and associated profile data will be permanently deleted.</p>
+
+      <h2>Important Notice</h2>
+      <p>Account deletion is permanent and cannot be undone.</p>
+
+      <h2>Need Help?</h2>
+      <p>If you face any issue deleting your account, contact us at: your@email.com</p>
+    </body>
+    </html>
+    """
