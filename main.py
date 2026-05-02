@@ -298,7 +298,7 @@ def android_assetlinks():
                 "relation": ["delegate_permission/common.handle_all_urls"],
                 "target": {
                     "namespace": "android_app",
-                    "package_name": "com.example.helios_x",
+                    "package_name": "com.solix.app",
                     "sha256_cert_fingerprints": [
                         "81:B2:E9:A2:74:E2:B9:E3:67:53:15:99:0A:7D:35:8E:E9:1B:F5:DF:21:6A:88:33:91:F3:28:C6:1F:0E:10:27"
                     ],
