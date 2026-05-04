@@ -301,7 +301,8 @@ def android_assetlinks():
                     "namespace": "android_app",
                     "package_name": "com.solix.app",
                     "sha256_cert_fingerprints": [
-                        "81:B2:E9:A2:74:E2:B9:E3:67:53:15:99:0A:7D:35:8E:E9:1B:F5:DF:21:6A:88:33:91:F3:28:C6:1F:0E:10:27"
+                        "81:B2:E9:A2:74:E2:B9:E3:67:53:15:99:0A:7D:35:8E:E9:1B:F5:DF:21:6A:88:33:91:F3:28:C6:1F:0E:10:27",
+                        "5D:80:A4:6F:E2:41:B4:1D:84:DB:D5:44:37:43:B3:35:E4:9E:4E:40:36:36:F1:93:3C:3B:B1:09:86:7D:75:22"
                     ],
                 },
             }
