@@ -318,7 +318,7 @@ def apple_app_site_association():
                 "apps": [],
                 "details": [
                     {
-                        "appID": "YOUR_TEAM_ID_HERE.com.example.heliosx",
+                        "appID": "com.solix.app",
                         "paths": ["*"],
                     }
                 ],
@@ -333,35 +333,92 @@ def privacy_policy():
     <!doctype html>
     <html lang="en">
     <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Privacy Policy - Solix</title>
       <style>
-        body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #111827; }
-        h1, h2 { color: #0f172a; }
+        body {
+          font-family: Arial, sans-serif;
+          max-width: 900px;
+          margin: 40px auto;
+          padding: 20px;
+          line-height: 1.8;
+        }
       </style>
     </head>
     <body>
+
       <h1>Privacy Policy for Solix</h1>
-      <p>Last updated: 2026</p>
+
+      <p>Last Updated: June 2026</p>
+
+      <p>
+      Solix respects your privacy and is committed to protecting your personal information.
+      This Privacy Policy explains how we collect, use, store and protect information
+      when you use the Solix mobile application.
+      </p>
 
       <h2>Information We Collect</h2>
-      <p>Solix may collect basic account information such as your name, email address, and authentication data when you sign up using email or Google Sign-In.</p>
+      <ul>
+        <li>Name</li>
+        <li>Email Address</li>
+        <li>Authentication information through Google Sign-In</li>
+        <li>Information required to provide application services</li>
+      </ul>
 
-      <h2>How We Use Your Information</h2>
-      <p>We use this information to create and manage your account, provide app features, improve the app experience, and secure user access.</p>
+      <h2>How We Use Information</h2>
+      <ul>
+        <li>Create and manage user accounts</li>
+        <li>Authenticate users</li>
+        <li>Provide application functionality</li>
+        <li>Improve security and performance</li>
+      </ul>
 
-      <h2>Data Storage</h2>
-      <p>User account data is stored securely using Supabase authentication and database services.</p>
+      <h2>Third Party Services</h2>
+      <p>
+      Solix may use trusted third-party services including Google Sign-In
+      and Supabase to provide authentication and data storage.
+      </p>
+
+      <h2>Data Storage and Security</h2>
+      <p>
+      User information is stored securely and protected using industry-standard
+      security measures.
+      </p>
 
       <h2>Data Sharing</h2>
-      <p>We do not sell your personal data or share it with third parties for marketing purposes.</p>
+      <p>
+      Solix does not sell personal information.
+      Data is only shared when necessary to provide application functionality
+      or comply with legal obligations.
+      </p>
+
+      <h2>Data Retention</h2>
+      <p>
+      We retain user information while the account remains active
+      and as required to provide our services.
+      </p>
 
       <h2>Account Deletion</h2>
-      <p>You can delete your account from inside the Solix app by going to Settings, then choosing Delete Account.</p>
+      <p>
+      Users may delete their account directly from the application settings.
+      </p>
 
-      <h2>Contact</h2>
-      <p>For privacy questions, contact us at: your@email.com</p>
+      <h2>Children's Privacy</h2>
+      <p>
+      Solix is not intended for children under 13 years of age.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+      We may update this Privacy Policy periodically.
+      </p>
+
+      <h2>Contact Us</h2>
+      <p>
+      Email: abdelrahmankhaleddev@gmail.com
+      </p>
+
     </body>
     </html>
     """
@@ -377,31 +434,91 @@ def delete_account_page():
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Delete Account - Solix</title>
       <style>
-        body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 20px; line-height: 1.7; color: #111827; }
-        h1, h2 { color: #0f172a; }
+        body {
+          font-family: Arial, sans-serif;
+          max-width: 900px;
+          margin: 40px auto;
+          padding: 20px;
+          line-height: 1.8;
+          color: #111827;
+        }
+        h1, h2 {
+          color: #0f172a;
+        }
+        a {
+          color: #2563eb;
+        }
       </style>
     </head>
     <body>
+
       <h1>Delete Account - Solix</h1>
-      <p>Solix allows users to delete their account directly from inside the mobile app.</p>
+
+      <p>
+        Solix allows users to permanently delete their account and associated
+        personal information directly from within the mobile application.
+      </p>
 
       <h2>How to Delete Your Account</h2>
+
       <ol>
-        <li>Open the Solix app.</li>
+        <li>Open the Solix mobile application.</li>
         <li>Sign in to your account.</li>
-        <li>Go to Settings.</li>
-        <li>Select Delete Account.</li>
-        <li>Confirm the deletion request.</li>
+        <li>Navigate to <strong>Settings</strong>.</li>
+        <li>Select <strong>Delete Account</strong>.</li>
+        <li>Confirm your deletion request.</li>
       </ol>
 
-      <h2>What Will Be Deleted</h2>
-      <p>Your account and associated profile data will be permanently deleted.</p>
+      <h2>What Data Will Be Deleted</h2>
 
-      <h2>Important Notice</h2>
-      <p>Account deletion is permanent and cannot be undone.</p>
+      <p>
+        When you delete your account, the following information will be permanently removed:
+      </p>
 
-      <h2>Need Help?</h2>
-      <p>If you face any issue deleting your account, contact us at: your@email.com</p>
+      <ul>
+        <li>Your account profile information.</li>
+        <li>Your authentication credentials associated with Solix.</li>
+        <li>Your personal information stored within the application.</li>
+      </ul>
+
+      <h2>Data Retention</h2>
+
+      <p>
+        Some information may be retained temporarily when required for legal,
+        security, fraud prevention, or regulatory compliance purposes.
+      </p>
+
+      <h2>Deletion Processing Time</h2>
+
+      <p>
+        Account deletion requests are typically processed immediately or within
+        a reasonable period required to complete data removal from our systems.
+      </p>
+
+      <h2>Need Assistance?</h2>
+
+      <p>
+        If you experience any issues deleting your account, please contact:
+      </p>
+
+      <p>
+        <strong>Email:</strong>
+        <a href="mailto:abdelrahmankhaleddev@gmail.com">
+          abdelrahmankhaleddev@gmail.com
+        </a>
+      </p>
+
+      <h2>Privacy Policy</h2>
+
+      <p>
+        For more information about how we collect and process personal data,
+        please review our Privacy Policy:
+      </p>
+
+      <p>
+        <a href="/privacy-policy">View Privacy Policy</a>
+      </p>
+
     </body>
     </html>
     """
