@@ -7,7 +7,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from fastapi import HTTPException
-
+from services.hybrid_model import HybridModel
 
 MODEL_FILE = Path("models") / "solar_forecast_bundle.joblib"
 
@@ -19,6 +19,7 @@ FEATURES_GHI = [
     "doy_cos",
     "T2M_clim",
     "WS2M_clim",
+    "GHI_clim",
     "GHI_lag1",
     "GHI_lag7",
     "GHI_lag30",
@@ -33,6 +34,7 @@ FEATURES_T2M = [
     "doy_cos",
     "T2M_clim",
     "WS2M_clim",
+    "GHI_clim",
     "T2M_lag1",
     "T2M_lag7",
     "T2M_lag30",
@@ -47,6 +49,7 @@ FEATURES_WS2M = [
     "doy_cos",
     "T2M_clim",
     "WS2M_clim",
+    "GHI_clim",
     "WS2M_lag1",
     "WS2M_lag7",
     "WS2M_lag30",
@@ -63,24 +66,49 @@ def load_model_bundle() -> Dict[str, Any]:
             detail=f"Model bundle not found: {MODEL_FILE}",
         )
 
-    bundle = joblib.load(MODEL_FILE)
-
-    model_ghi = bundle.get("model_GHI") or bundle.get("model")
-    model_t2m = bundle.get("model_T2M")
-    model_ws2m = bundle.get("model_WS2M")
-
-    if model_ghi is None or model_t2m is None or model_ws2m is None:
+    try:
+        bundle = joblib.load(MODEL_FILE)
+    except Exception as exc:
         raise HTTPException(
             status_code=500,
-            detail="Model bundle must contain model_GHI/model, model_T2M, and model_WS2M.",
+            detail=f"Failed to load model bundle: {str(exc)}",
+        ) from exc
+
+    try:
+        model_ghi = HybridModel(
+            bundle["lgbm_GHI"],
+            bundle["ridge_GHI"],
+            bundle["meta_GHI"],
+            bundle["scaler_GHI"],
+            bundle.get("ridge_cols"),
         )
+
+        model_t2m = HybridModel(
+            bundle["lgbm_T2M"],
+            bundle["ridge_T2M"],
+            bundle["meta_T2M"],
+            bundle["scaler_T2M"],
+            bundle.get("ridge_cols"),
+        )
+
+        model_ws2m = HybridModel(
+            bundle["lgbm_WS2M"],
+            bundle["ridge_WS2M"],
+            bundle["meta_WS2M"],
+            bundle["scaler_WS2M"],
+            bundle.get("ridge_cols"),
+        )
+    except KeyError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Hybrid model bundle missing key: {str(exc)}",
+        ) from exc
 
     return {
         "model_GHI": model_ghi,
         "model_T2M": model_t2m,
         "model_WS2M": model_ws2m,
     }
-
 
 def nasa_json_to_dataframe(nasa_payload: Dict[str, Any]) -> pd.DataFrame:
     raw_parameters = nasa_payload["properties"]["parameter"]
@@ -239,13 +267,14 @@ def run_iterative_forecast(
 
     for _, row in df_future.iterrows():
         base = {
-            "month_sin": float(row["month_sin"]),
-            "month_cos": float(row["month_cos"]),
-            "doy_sin": float(row["doy_sin"]),
-            "doy_cos": float(row["doy_cos"]),
-            "T2M_clim": float(row["T2M_clim"]),
-            "WS2M_clim": float(row["WS2M_clim"]),
-        }
+    "month_sin": float(row["month_sin"]),
+    "month_cos": float(row["month_cos"]),
+    "doy_sin": float(row["doy_sin"]),
+    "doy_cos": float(row["doy_cos"]),
+    "T2M_clim": float(row["T2M_clim"]),
+    "WS2M_clim": float(row["WS2M_clim"]),
+    "GHI_clim": float(row["GHI_clim"]),
+}
 
         ghi_features = {
             **base,
@@ -337,12 +366,12 @@ def aggregate_forecast(
         "type": "Feature",
         "geometry": nasa_src.get("geometry"),
         "header": {
-            "title": "NASA/POWER Forecast Aggregated By XGBoost",
+            "title": "NASA/POWER Forecast Aggregated By Hybrid Model",
             "prediction_type": prediction_type,
             "aggregation": "average",
             "start": df["Date"].min().strftime("%Y-%m-%d"),
             "end": df["Date"].max().strftime("%Y-%m-%d"),
-            "model": "XGBoost Iterative Forecast",
+            "model": "Hybrid LightGBM + Ridge Stacking Forecast",
         },
         "properties": {
             "parameter": {
